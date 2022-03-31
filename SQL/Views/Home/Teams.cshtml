@@ -1,0 +1,63 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model List<Bowler>
+
+
+
+<div class=" row m-1 p-1">
+    <div class="col-2">
+        <h3 style="text-align:center; ">Teams</h3>
+        <a class="btn btn-block btn-primary" style="text-align: center;" asp-controller="Home" asp-action="Index">Home</a><br />
+        @foreach (Team t in ViewBag.Teams)
+        {
+
+            <a class="btn btn-block btn-primary "
+               style="text-align: center;"
+               asp-action="Teams"
+               asp-route-id="@t.TeamID">
+
+                @t.TeamName
+
+            </a>
+        }
+    </div>
+    <div class="col-10">
+        <h1>@ViewBag.team.TeamName</h1>
+        <br /><br />
+
+        <ul>
+            @foreach (var b in Model)
+            {
+
+                <div class="card card-outline-primary m-1 p-1">
+                    <div class="bg-light p-1">
+                        <h4>@b.BowlerFirstName @b.BowlerMiddleInit @b.BowlerLastName</h4>
+                    </div>
+
+                    <ul>
+                        <li>Team: @b.Teambowler.TeamName</li>
+                        <li>Address: @b.BowlerAddress</li>
+                        <li>City: @b.BowlerCity</li>
+                        <li>State: @b.BowlerState</li>
+                        <li>Zip Code: @b.BowlerZip</li>
+                        <li>Phone Number: @b.BowlerPhoneNumber</li>
+                        @*<li><a type="submit" class="btn btn-warning btn-sm float-end" asp-action="EditBowler" asp-route-bowlerid="@b.BowlerID">Edit</a></li>*@
+                    </ul>
+                    <form method="post">
+
+                        <input type="hidden" value="@b.BowlerID" name="BowlerID" />
+
+                        <span class="card-text">
+
+                            <a type="submit" class="btn btn-warning btn-sm float-end" asp-action="EditBowler" asp-route-bowlerid="@b.BowlerID">Edit</a>
+                            <button type="submit" class="btn btn-danger btn-sm float-end" asp-action="Delete">Delete</button>
+                        </span>
+
+                    </form>
+
+                </div>
+            }
+        </ul>
+    </div>
